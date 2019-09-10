@@ -4,6 +4,42 @@ import (
 	"testing"
 )
 
+func TestPushNewElementMustIncreaseSize(t *testing.T) {
+	list := List{0, new(node)}
+	list.Push(222)
+
+	if list.Len != 1 {
+		t.Errorf("Push operation must increase size of list.")
+	}
+}
+
+func TestPushNewElementsAndAssertBehavior(t *testing.T) {
+	list := List{0, new(node)}
+	list.Push(222)
+
+	if list.Head.Next.Data != 222 {
+		t.Errorf("Push operation must add to the beginning of the list.")
+	}
+
+	list.Push(2)
+
+	if list.Head.Next.Data != 2 {
+		t.Errorf("Push operation must add to the beginning of the list.")
+	}
+
+	if list.Head.Next.Next.Data != 222 {
+		t.Errorf("Push operation must maintain list integrity.")
+	}
+
+	if list.Head.Prev.Data != 222 {
+		t.Errorf("Push operation must maintain list integrity.")
+	}
+
+	if list.Len != 2 {
+		t.Errorf("Push operation must increase size of list.")
+	}
+}
+
 func TestListWithNoElements(t *testing.T) {
 	list := new(List)
 	if list.Len != 0 {
