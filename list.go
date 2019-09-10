@@ -20,6 +20,10 @@ func (l *List) Init() *List {
 	return l
 }
 
+func (l *List) Size() int {
+	return l.Len
+}
+
 //Push new element into the beginning of the list
 func (l *List) Push(newData interface{}) {
 	n := &node{newData, new(node), new(node)}

@@ -11,7 +11,7 @@ func TestPushNewElementAsList(t *testing.T) {
 	list := new(List).Init()
 	list.Push(internalList)
 
-	if list.Len != 1 {
+	if list.Size() != 1 {
 		t.Errorf("Push operation must increase size of list.")
 	}
 
@@ -25,7 +25,7 @@ func TestPushNewElementAsBasicType(t *testing.T) {
 	list := new(List).Init()
 	list.Push(222)
 
-	if list.Len != 1 {
+	if list.Size() != 1 {
 		t.Errorf("Push operation must increase size of list.")
 	}
 
@@ -39,7 +39,7 @@ func TestPushNewElementMustIncreaseSize(t *testing.T) {
 	list := new(List).Init()
 	list.Push(222)
 
-	if list.Len != 1 {
+	if list.Size() != 1 {
 		t.Errorf("Push operation must increase size of list.")
 	}
 }
@@ -66,7 +66,7 @@ func TestPushNewElementsAndAssertBehavior(t *testing.T) {
 		t.Errorf("Push operation must maintain list integrity.")
 	}
 
-	if list.Len != 2 {
+	if list.Size() != 2 {
 		t.Errorf("Push operation must increase size of list.")
 	}
 }
@@ -82,7 +82,7 @@ func TestAppendOneElementIncreaseLenghtOfList(t *testing.T) {
 	list := new(List).Init()
 	list.Append(19)
 
-	if list.Len != 1 {
+	if list.Size() != 1 {
 		t.Errorf("List must support the append operation.")
 	}
 }
@@ -101,7 +101,7 @@ func TestAppendOneElementToTheEndOfList(t *testing.T) {
 		t.Errorf("Second expected element not found.")
 	}
 
-	if list.Len != 2 {
+	if list.Size() != 2 {
 		t.Errorf("Append operation must increase lenght of list.")
 	}
 
@@ -114,7 +114,7 @@ func TestAppendVariousElementsAndAssertCorrectSize(t *testing.T) {
 	list.Append(20)
 	list.Append(2)
 
-	if list.Len != 4 {
+	if list.Size() != 4 {
 		t.Errorf("List must support the append operation.")
 	}
 
