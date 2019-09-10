@@ -1,7 +1,7 @@
 package lfucgo
 
 type node struct {
-	Data       int
+	Data       interface{}
 	Next, Prev *node
 }
 
@@ -21,7 +21,7 @@ func (l *List) Init() *List {
 }
 
 //Push new element into the beginning of the list
-func (l *List) Push(newData int) {
+func (l *List) Push(newData interface{}) {
 	n := &node{newData, new(node), new(node)}
 	if l.Len == 0 {
 		l.Head.Prev = n
@@ -38,7 +38,7 @@ func (l *List) Push(newData int) {
 }
 
 //Append new item to the end of the list
-func (l *List) Append(newData int) {
+func (l *List) Append(newData interface{}) {
 	n := &node{newData, new(node), new(node)}
 	if l.Len == 0 {
 		l.Head.Prev = n

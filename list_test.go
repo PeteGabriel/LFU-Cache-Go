@@ -4,6 +4,37 @@ import (
 	"testing"
 )
 
+func TestPushNewElementAsList(t *testing.T) {
+	internalList := new(List).Init()
+	internalList.Push(222)
+
+	list := new(List).Init()
+	list.Push(internalList)
+
+	if list.Len != 1 {
+		t.Errorf("Push operation must increase size of list.")
+	}
+
+	tmpl := list.Head.Next.Data.(*List)
+	if tmpl.Head.Next.Data != 222 {
+		t.Errorf("Push operation must insert elements into list.")
+	}
+}
+
+func TestPushNewElementAsBasicType(t *testing.T) {
+	list := new(List).Init()
+	list.Push(222)
+
+	if list.Len != 1 {
+		t.Errorf("Push operation must increase size of list.")
+	}
+
+	data := list.Head.Next.Data.(int)
+	if data != 222 {
+		t.Errorf("Push operation must insert elements into list.")
+	}
+}
+
 func TestPushNewElementMustIncreaseSize(t *testing.T) {
 	list := new(List).Init()
 	list.Push(222)
@@ -87,17 +118,20 @@ func TestAppendVariousElementsAndAssertCorrectSize(t *testing.T) {
 		t.Errorf("List must support the append operation.")
 	}
 
-	if list.Head.Next.Data != 19 {
+	first := list.Head.Next.Data.(int)
+	if first != 19 {
 		t.Errorf("First expected element not found.")
 	}
-	if list.Head.Next.Next.Data != 1 {
+	second := list.Head.Next.Next.Data.(int)
+	if second != 1 {
 		t.Errorf("Second expected element not found.")
 	}
-	if list.Head.Next.Next.Next.Data != 20 {
+	third := list.Head.Next.Next.Next.Data.(int)
+	if third != 20 {
 		t.Errorf("Second expected element not found.")
 	}
-	if list.Head.Next.Next.Next.Next.Data != 2 {
+	fourth := list.Head.Next.Next.Next.Next.Data.(int)
+	if fourth != 2 {
 		t.Errorf("Second expected element not found.")
 	}
-
 }
