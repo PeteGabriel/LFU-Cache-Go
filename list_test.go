@@ -39,3 +39,29 @@ func TestAppendOneElementToTheEndOfList(t *testing.T) {
 	}
 
 }
+
+func TestAppendVariousElementsAndAssertCorrectSize(t *testing.T) {
+	list := List{0, new(node)}
+	list.Append(19)
+	list.Append(1)
+	list.Append(20)
+	list.Append(2)
+
+	if list.Len != 4 {
+		t.Errorf("List must support the append operation.")
+	}
+
+	if list.Head.Next.Data != 19 {
+		t.Errorf("First expected element not found.")
+	}
+	if list.Head.Next.Next.Data != 1 {
+		t.Errorf("Second expected element not found.")
+	}
+	if list.Head.Next.Next.Next.Data != 20 {
+		t.Errorf("Second expected element not found.")
+	}
+	if list.Head.Next.Next.Next.Next.Data != 2 {
+		t.Errorf("Second expected element not found.")
+	}
+
+}
