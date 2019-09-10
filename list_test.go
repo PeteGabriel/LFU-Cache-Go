@@ -5,7 +5,7 @@ import (
 )
 
 func TestPushNewElementMustIncreaseSize(t *testing.T) {
-	list := List{0, new(node)}
+	list := new(List).Init()
 	list.Push(222)
 
 	if list.Len != 1 {
@@ -14,7 +14,7 @@ func TestPushNewElementMustIncreaseSize(t *testing.T) {
 }
 
 func TestPushNewElementsAndAssertBehavior(t *testing.T) {
-	list := List{0, new(node)}
+	list := new(List).Init()
 	list.Push(222)
 
 	if list.Head.Next.Data != 222 {
@@ -41,14 +41,14 @@ func TestPushNewElementsAndAssertBehavior(t *testing.T) {
 }
 
 func TestListWithNoElements(t *testing.T) {
-	list := new(List)
+	list := new(List).Init()
 	if list.Len != 0 {
 		t.Errorf("List with no elements must not contain any element.")
 	}
 }
 
 func TestAppendOneElementIncreaseLenghtOfList(t *testing.T) {
-	list := List{0, new(node)}
+	list := new(List).Init()
 	list.Append(19)
 
 	if list.Len != 1 {
@@ -57,7 +57,7 @@ func TestAppendOneElementIncreaseLenghtOfList(t *testing.T) {
 }
 
 func TestAppendOneElementToTheEndOfList(t *testing.T) {
-	list := List{0, new(node)}
+	list := new(List).Init()
 	list.Append(19)
 
 	if list.Head.Next.Data != 19 {
@@ -77,7 +77,7 @@ func TestAppendOneElementToTheEndOfList(t *testing.T) {
 }
 
 func TestAppendVariousElementsAndAssertCorrectSize(t *testing.T) {
-	list := List{0, new(node)}
+	list := new(List).Init()
 	list.Append(19)
 	list.Append(1)
 	list.Append(20)

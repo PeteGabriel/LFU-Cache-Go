@@ -11,6 +11,15 @@ type List struct {
 	Head *node
 }
 
+// Init initializes or clears list l.
+func (l *List) Init() *List {
+	l.Head = new(node)
+	l.Head.Next = l.Head
+	l.Head.Prev = l.Head
+	l.Len = 0
+	return l
+}
+
 //Push new element into the beginning of the list
 func (l *List) Push(newData int) {
 	n := &node{newData, new(node), new(node)}
