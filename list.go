@@ -7,7 +7,7 @@ type node struct {
 
 //List represents a set of nodes (DLL)
 type List struct {
-	Len  int
+	len  int
 	Head *node
 }
 
@@ -16,36 +16,39 @@ func (l *List) Init() *List {
 	l.Head = new(node)
 	l.Head.Next = l.Head
 	l.Head.Prev = l.Head
-	l.Len = 0
+	l.len = 0
 	return l
 }
 
-//Size of the list
+//Size returns the amount of elements inside the list
 func (l *List) Size() int {
-	return l.Len
+	return l.len
 }
 
 //Push new element into the beginning of the list
 func (l *List) Push(newData interface{}) {
 	n := &node{newData, new(node), new(node)}
-	if l.Len == 0 {
+	if l.len == 0 {
 		l.Head.Prev = n
 		l.Head.Next = n
 		l.Head.Prev.Next = l.Head
 		l.Head.Prev.Prev = l.Head
-	} else {
-		l.Head.Next.Prev = n
-		n.Next = l.Head.Next
-		n.Prev = l.Head
-		l.Head.Next = n
+		l.len++
+		return
 	}
-	l.Len++
+
+	l.Head.Next.Prev = n
+	n.Next = l.Head.Next
+	n.Prev = l.Head
+	l.Head.Next = n
+
+	l.len++
 }
 
 //Append new item to the end of the list
 func (l *List) Append(newData interface{}) {
 	n := &node{newData, new(node), new(node)}
-	if l.Len == 0 {
+	if l.len == 0 {
 		l.Head.Prev = n
 		l.Head.Next = n
 		l.Head.Prev.Next = l.Head
@@ -56,5 +59,5 @@ func (l *List) Append(newData interface{}) {
 		l.Head.Prev = n
 		l.Head.Prev.Next = l.Head
 	}
-	l.Len++
+	l.len++
 }
