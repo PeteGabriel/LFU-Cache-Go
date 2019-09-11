@@ -20,6 +20,7 @@ func (l *List) Init() *List {
 	return l
 }
 
+//Size of the list
 func (l *List) Size() int {
 	return l.Len
 }
