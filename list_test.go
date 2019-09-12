@@ -73,7 +73,7 @@ func TestPushNewElementsAndAssertBehavior(t *testing.T) {
 
 func TestListWithNoElements(t *testing.T) {
 	list := new(List).Init()
-	if list.Len != 0 {
+	if list.Size() != 0 {
 		t.Errorf("List with no elements must not contain any element.")
 	}
 }

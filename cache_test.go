@@ -13,7 +13,8 @@ func TestCacheCanSaveNewElement(t *testing.T){
   cache:= new(Cache).Init()
 	key:= 1
 	elem:= "NewElement"
-  if cache.Size() != 1 {
+	inserted := cache.Insert(key, elem)
+  if cache.Size() != 1 || !inserted {
 		t.Error("Cache must insert new elements.")
 	}
 }

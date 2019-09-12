@@ -24,14 +24,35 @@ func (c *Cache) GetElement(key int) interface{} {
 //Insert element by key
 //This operation costs O(1).
 func (c *Cache) Insert(key int, elem interface{}) bool {
-  c.elems[key] = elem
-  c.freq.Push
-  return true
+  _, exists := c.elems[key]
+	if exists {
+		return false
+	}
+
+	c.elems[key] = elem
+
+	if c.freq.Size() == 0 {
+    c.freq.Push(&Pair{1, elem})
+		return true
+	}
+
+  freqOneNode := &c.freq.Head.Next.Data.(Pair)
+  if freqOneNode.v == 1 {
+    l:= &freqOneNode.d.(List)
+		l.Push(elem)
+		return true
+	}
+
+  return false
 }
 
 //Remove element by key
 //This operation costs O(1).
 func (c *Cache) Remove(key int) {
 
-  delete(c.elements, key)
+  delete(c.elems, key)
+}
+
+func (c *Cache) Size() int {
+ return len(c.elems)
 }
