@@ -1,5 +1,6 @@
 package lfucgo
 
+
 type Cache struct {
   elems    map[int]interface{}
   freq *List
@@ -10,15 +11,26 @@ func (c *Cache) Init() *Cache {
   c.elems = make(map[int]interface{})
   c.freq = new(List).Init()
 
-  c.freq.Push(&Pair{1, new(List).Init()})
+  p:= &Pair{1, new(List).Init()}
+  c.freq.Push(p, p)
   return c
 }
 
 
-//Get element by key without removing it.
+//Access element by key without removing it.
 //This operation costs O(1).
-func (c *Cache) GetElement(key int) interface{} {
-  return nil
+func (c *Cache) Access(key int) (interface{}, int) {
+
+	_, exists := c.elems[key]
+	if exists {
+		elem:= c.elems[key].(*Node)
+		freq:= elem.Parent.(*Pair)
+		freq.v++
+		return elem, freq.v
+	}
+
+  return nil, 0
+
 }
 
 //Insert element by key
@@ -29,17 +41,20 @@ func (c *Cache) Insert(key int, elem interface{}) bool {
 		return false
 	}
 
-	c.elems[key] = elem
 
 	if c.freq.Size() == 0 {
-    c.freq.Push(&Pair{1, elem})
+    p:= &Pair{1, elem}
+    n := c.freq.Push(p,p)
+    c.elems[key] = n
+
 		return true
 	}
 
-  freqOneNode := &c.freq.Head.Next.Data.(Pair)
+  freqOneNode := c.freq.Head.Next.Data.(*Pair)
   if freqOneNode.v == 1 {
-    l:= &freqOneNode.d.(List)
-		l.Push(elem)
+    l:= freqOneNode.d.(*List)
+		n:= l.Push(elem, c.freq.Head.Next.Data)
+		c.elems[key] = n
 		return true
 	}
 
@@ -53,6 +68,7 @@ func (c *Cache) Remove(key int) {
   delete(c.elems, key)
 }
 
+//Size of cache
 func (c *Cache) Size() int {
  return len(c.elems)
 }

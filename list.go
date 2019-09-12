@@ -1,19 +1,20 @@
 package lfucgo
 
-type node struct {
+type Node struct {
 	Data       interface{}
-	Next, Prev *node
+	Next, Prev *Node
+	Parent interface{}
 }
 
 //List represents a set of nodes (DLL)
 type List struct {
 	len  int
-	Head *node
+	Head *Node
 }
 
 // Init initializes or clears list l.
 func (l *List) Init() *List {
-	l.Head = new(node)
+	l.Head = new(Node)
 	l.Head.Next = l.Head
 	l.Head.Prev = l.Head
 	l.len = 0
@@ -26,15 +27,15 @@ func (l *List) Size() int {
 }
 
 //Push new element into the beginning of the list
-func (l *List) Push(newData interface{}) {
-	n := &node{newData, new(node), new(node)}
+func (l *List) Push(newData interface{}, parentInfo interface{}) *Node {
+	n := &Node{newData, new(Node), new(Node), parentInfo}
 	if l.len == 0 {
 		l.Head.Prev = n
 		l.Head.Next = n
 		l.Head.Prev.Next = l.Head
 		l.Head.Prev.Prev = l.Head
 		l.len++
-		return
+		return n
 	}
 
 	l.Head.Next.Prev = n
@@ -43,11 +44,12 @@ func (l *List) Push(newData interface{}) {
 	l.Head.Next = n
 
 	l.len++
+	return n
 }
 
 //Append new item to the end of the list
-func (l *List) Append(newData interface{}) {
-	n := &node{newData, new(node), new(node)}
+func (l *List) Append(newData interface{}, parentInfo interface{}) {
+	n := &Node{newData, new(Node), new(Node), parentInfo}
 	if l.len == 0 {
 		l.Head.Prev = n
 		l.Head.Next = n

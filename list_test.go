@@ -6,10 +6,10 @@ import (
 
 func TestPushNewElementAsList(t *testing.T) {
 	internalList := new(List).Init()
-	internalList.Push(222)
+	internalList.Push(222, nil)
 
 	list := new(List).Init()
-	list.Push(internalList)
+	list.Push(internalList, nil)
 
 	if list.Size() != 1 {
 		t.Errorf("Push operation must increase size of list.")
@@ -23,7 +23,7 @@ func TestPushNewElementAsList(t *testing.T) {
 
 func TestPushNewElementAsBasicType(t *testing.T) {
 	list := new(List).Init()
-	list.Push(222)
+	list.Push(222, nil)
 
 	if list.Size() != 1 {
 		t.Errorf("Push operation must increase size of list.")
@@ -37,7 +37,7 @@ func TestPushNewElementAsBasicType(t *testing.T) {
 
 func TestPushNewElementMustIncreaseSize(t *testing.T) {
 	list := new(List).Init()
-	list.Push(222)
+	list.Push(222, nil)
 
 	if list.Size() != 1 {
 		t.Errorf("Push operation must increase size of list.")
@@ -46,13 +46,13 @@ func TestPushNewElementMustIncreaseSize(t *testing.T) {
 
 func TestPushNewElementsAndAssertBehavior(t *testing.T) {
 	list := new(List).Init()
-	list.Push(222)
+	list.Push(222, nil)
 
 	if list.Head.Next.Data != 222 {
 		t.Errorf("Push operation must add to the beginning of the list.")
 	}
 
-	list.Push(2)
+	list.Push(2, nil)
 
 	if list.Head.Next.Data != 2 {
 		t.Errorf("Push operation must add to the beginning of the list.")
@@ -80,7 +80,7 @@ func TestListWithNoElements(t *testing.T) {
 
 func TestAppendOneElementIncreaseLenghtOfList(t *testing.T) {
 	list := new(List).Init()
-	list.Append(19)
+	list.Append(19, nil)
 
 	if list.Size() != 1 {
 		t.Errorf("List must support the append operation.")
@@ -89,13 +89,13 @@ func TestAppendOneElementIncreaseLenghtOfList(t *testing.T) {
 
 func TestAppendOneElementToTheEndOfList(t *testing.T) {
 	list := new(List).Init()
-	list.Append(19)
+	list.Append(19, nil)
 
 	if list.Head.Next.Data != 19 {
 		t.Errorf("First expected element not found.")
 	}
 
-	list.Append(23)
+	list.Append(23, nil)
 
 	if list.Head.Prev.Data != 23 {
 		t.Errorf("Second expected element not found.")
@@ -109,10 +109,10 @@ func TestAppendOneElementToTheEndOfList(t *testing.T) {
 
 func TestAppendVariousElementsAndAssertCorrectSize(t *testing.T) {
 	list := new(List).Init()
-	list.Append(19)
-	list.Append(1)
-	list.Append(20)
-	list.Append(2)
+	list.Append(19, nil)
+	list.Append(1, nil)
+	list.Append(20, nil)
+	list.Append(2, nil)
 
 	if list.Size() != 4 {
 		t.Errorf("List must support the append operation.")
